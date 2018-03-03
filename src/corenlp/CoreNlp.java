@@ -46,11 +46,13 @@ public class CoreNlp {
 
         // create an empty Annotation just with the given text
         this.document = new Annotation(rawText);
-
+//        System.out.println(this.document.size());
         // run all Annotators on this text
         pipeline.annotate(this.document);
-        createMani();
+//        this.createMani();
+        this.createSentenceList();
     }
+
 
     public static String loadStopWordList(File file) throws IOException {
         FileInputStream inputStream = new FileInputStream(file);
@@ -107,6 +109,7 @@ public class CoreNlp {
         this.sentenceList = new LinkedList<>();
         for (CoreMap sentence: sentences){
             SemanticGraph depparse = sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class);
+//            System.out.println(depparse.size());
             this.sentenceList.add(depparse);
         }
     }

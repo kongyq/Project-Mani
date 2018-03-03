@@ -7,8 +7,12 @@ import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.util.Pair;
 import homology.Plex;
+import it.uniroma1.lcl.adw.ADW;
+import it.uniroma1.lcl.adw.textual.similarity.TextualSimilarity;
 import stemmer.Stemmer;
 import stopword.StopwordAnnotator;
+import wordnet.Adw;
+//import wordnet.OovChecker;
 import wordnet.WS4J;
 
 import java.util.*;
@@ -33,6 +37,9 @@ public class CoreMani {
     private Plex plex;  //JavaPlex instance
     private WS4J ws4J;  //WordNet word similarity matrix instance
 
+    private Adw adw;    //ADW instance
+//    private OovChecker oovChecker;  //ADW oov checker
+
     private Double maniScore;
 
     //for Jaccard similarity test only
@@ -40,13 +47,18 @@ public class CoreMani {
     private Set<String> totalTerms = new HashSet<>();
     private Double jaccardSimilarity;
 
+    //for Babel and ADW
+    private HashMap<IndexedWord, List<String>> doc1Senses;
+    private HashMap<IndexedWord, List<String>> doc2Senses;
+
 
     /***
      * Initial CoreMani class will two documents sentence list in SemanticGraph format.
      * @param doc1 Sentences list in doc1
      * @param doc2 Sentences list in doc2
      */
-    public CoreMani(LinkedList<SemanticGraph> doc1, LinkedList<SemanticGraph> doc2){
+    public CoreMani(LinkedList<SemanticGraph> doc1, LinkedList<SemanticGraph> doc2,
+                    HashMap<IndexedWord, List<String>> doc1Senses, HashMap<IndexedWord, List<String>> doc2Senses){
         this.doc1SentList = doc1;
         this.doc2SentList = doc2;
         this.wordList1 = this.initWordList();
@@ -55,8 +67,15 @@ public class CoreMani {
         this.ws4J = new WS4J();
         this.maniScore = 0D;
 
+        this.doc1Senses = doc1Senses;
+        this.doc2Senses = doc2Senses;
+
         //Fot TEST only
-        this.createTotalTerms();
+        //this.createTotalTerms();
+
+        //For ADW TEST
+        this.adw = new Adw();
+//        this.oovChecker = new OovChecker();
     }
 
     /***
@@ -81,6 +100,14 @@ public class CoreMani {
      */
     public double getFiltration(IndexedWord word1, IndexedWord word2, POS pos){
         return 1-this.ws4J.wordSimilarity(word1.lemma(), word2.lemma(), pos);
+    }
+
+    //For ADW test
+    public double getFiltration_ADW(IndexedWord word1, IndexedWord word2){
+
+        Double score = 1D - this.adw.getBestMatchScore(this.doc1Senses.get(word1), this.doc2Senses.get(word2));
+//        Double score = 1D - this.adw.getOffsetSimilarity(word1.lemma().toLowerCase(), word2.lemma().toLowerCase());
+        return score;
     }
 
     /***
@@ -211,15 +238,15 @@ public class CoreMani {
         for(SemanticGraph sentence: sentences) {
 
             for (IndexedWord word : sentence.vertexSet()) {
-                POS pos = tagToPOS(word.tag());
-                if (pos == null) {
+//                POS pos = tagToPOS(word.tag());
+                if (tagToPOS(word.tag()) == null) {
                     continue;
                 }
                 //if word is stopword then skip
                 if (isStopword(word) && skipStopword){
                     continue;
                 }
-                wordList.get(pos).add(word);
+                wordList.get(tagToPOS(word.tag())).add(word);
             }
         }
     }
@@ -259,34 +286,48 @@ public class CoreMani {
         for (IndexedWord indexedWord1: this.wordList1.get(pos)){
             for (IndexedWord indexedWord2: this.wordList2.get(pos)) {
                 //if the stem of the two words are the same then add element with filtration value 0.0
-                if (stemmer.stem(indexedWord1.word()).equalsIgnoreCase(stemmer.stem(indexedWord2.word()))){
-                    this.plex.addElement(indexedwordToVertex(indexedWord1, 1),
-                            indexedwordToVertex(indexedWord2, 2),
-                            0D);
-                    //For test only
+
+//                System.out.println(indexedWord1.word() + " : " + indexedWord2.word());
+
+                if (!this.doc1Senses.containsKey(indexedWord1) && !this.doc2Senses.containsKey(indexedWord2)) {
+//                    System.out.println("OOV!");
+                    if (stemmer.stem(indexedWord1.word()).equalsIgnoreCase(stemmer.stem(indexedWord2.word()))) {
+//                        System.out.println("OOV EQUAL!");
+                        this.plex.addElement(indexedwordToVertex(indexedWord1, 1),
+                                indexedwordToVertex(indexedWord2, 2),
+                                0D);
+                        //For test only
 //                    this.commonTerms.add(stemmer.stem(indexedWord1.word()));
 
+//                        continue;
+                    }
                     continue;
                 }
 
                 //if not, then use Wordnet to compute similarity between two words.
 //                timer.start();
-                Double score = this.getFiltration(indexedWord1, indexedWord2, pos);
+//                Double score = this.getFiltration(indexedWord1, indexedWord2, pos);
+                if (this.doc1Senses.containsKey(indexedWord1) && this.doc2Senses.containsKey(indexedWord2)){
+//                    System.out.println("IV!");
+                    Double score = this.getFiltration_ADW(indexedWord1, indexedWord2);
+//                    System.out.println(score);
 //                timer.stop();
-                if (score >= 0D && score < 0.3D) {
-                    this.plex.addElement(indexedwordToVertex(indexedWord1, 1),
-                            indexedwordToVertex(indexedWord2, 2),
-                            score);
+                    if (score >= 0D && score <= 1D) {
+                        this.plex.addElement(indexedwordToVertex(indexedWord1, 1),
+                                indexedwordToVertex(indexedWord2, 2),
+                                score);
 
-                    //For test only
+                        //For test only
                    /* if (score == 0D){
                         this.commonTerms.add(stemmer.stem(indexedWord1.word()));
                         this.commonTerms.add(stemmer.stem(indexedWord2.word()));
                     }*/
 
-                }else if (score > 1D){
-                    System.out.format("ERROR: %f", score);
+                    }else if (score > 1D){
+                        System.out.format("ERROR: %f", score);
+                    }
                 }
+
             }
         }
 //        System.out.println("\t\tWordNet Runtime: " + timer);

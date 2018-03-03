@@ -41,7 +41,7 @@ public class testCoreMani {
 
         timer.reset();
         timer.start();
-        CoreMani coreMani = new CoreMani(coreNlp1.getSentenceList(), coreNlp2.getSentenceList());
+        CoreMani coreMani = new CoreMani(coreNlp1.getSentenceList(), coreNlp2.getSentenceList(), null, null);
         coreMani.run(new POS[]{POS.n, POS.v}, true);
         System.out.println("CoreMani:" + timer.stop());
 

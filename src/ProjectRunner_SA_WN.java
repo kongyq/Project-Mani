@@ -2,6 +2,7 @@ import com.google.common.base.Stopwatch;
 import core.CoreMani;
 import corenlp.CoreNlp;
 import edu.stanford.nlp.util.Pair;
+import it.uniroma1.lcl.babelnet.InvalidBabelSynsetIDException;
 import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 import org.apache.xpath.SourceTree;
 import reader.DocReader;
@@ -27,7 +28,7 @@ public class ProjectRunner_SA_WN {
     private static final File DATASET = new File("/home/mike/Documents/corpus/documents.txt");
     private static final File EVAL = new File("/home/mike/Documents/corpus/sim.csv");
 
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException, InvalidBabelSynsetIDException {
         Stopwatch timer = Stopwatch.createStarted();
         DocReader docReader = new DocReader();
         docReader.readShortArticle(DATASET);
@@ -38,7 +39,7 @@ public class ProjectRunner_SA_WN {
 
         System.out.println("Start!");
 
-        PrintStream out = new PrintStream(new FileOutputStream("/home/mike/Desktop/ManiOutput_CW_WN_SW_JS_fixed_more_2_3.txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("/home/mike/Desktop/ManiOutput_Babel_ADW_NVPOS_NOSW_FULL.txt"));
         System.setOut(out);
 
         //create executor for multithreads
@@ -53,6 +54,13 @@ public class ProjectRunner_SA_WN {
 
         List<Future<Pair<Pair<Integer, Integer>, Double[]>>> threadList = new ArrayList<>();
 
+        //TODO for save tokens!!!!!!
+        GenerateOracle oracle = new GenerateOracle(docs);
+
+
+
+        //
+
         for (Pair<Integer, Integer> docPair: docPairs) {
             //System.out.println(docPair);
 
@@ -61,7 +69,15 @@ public class ProjectRunner_SA_WN {
             coreNlp1.read(docs.get(docPair.first()));
             coreNlp2.read(docs.get(docPair.second()));
 
-            Future<Pair<Pair<Integer, Integer>, Double[]>> futureCall = executor.submit(new CoreThread(docPair, coreNlp1, coreNlp2, new Double[]{1D, 0.95D, 0.9D, 0.85D, 0.8D, 0.75D}));
+//            Future<Pair<Pair<Integer, Integer>, Double[]>> futureCall = executor.submit(new CoreThread(docPair, coreNlp1, coreNlp2, new Double[]{1D, 0.95D, 0.9D, 0.85D, 0.8D, 0.75D}));
+            Future<Pair<Pair<Integer, Integer>, Double[]>> futureCall = executor.submit(
+                    new CoreThread(
+                            docPair,
+                            oracle.getWNsynsets(docPair.first()),
+                            oracle.getWNsynsets(docPair.second()),
+                            coreNlp1, coreNlp2,
+                            new Double[]{1D, 0.95D, 0.9D, 0.85D, 0.8D, 0.75D, 0.7D, 0.65D, 0.6D, 0.55D, 0.5D, 0.45D, 0.4D, 0.35D, 0.3D, 0.25D, 0.2D, 0.15D, 0.1D, 0.05D, 0D}));
+
 //            Future<Pair<Pair<Integer, Integer>, Double[]>> futureCall = executor.submit(new CoreThread(docPair, coreNlp1, coreNlp2, new Double[]{1D}));
 
             threadList.add(futureCall);
@@ -89,28 +105,28 @@ public class ProjectRunner_SA_WN {
 //            System.out.format("%s, %.6f, %.6f%n",docPair, evalMatrix.get(docPair), core.getSimilarity());
         }
 
-        System.out.print("Correlation:");
-        for (Double score: computeCorrelation(maniMatrix, evalMatrix)){
-            System.out.format("%.6f ", score);
-
-        }
-        System.out.println();
-
-        System.out.println("Mean and Dev (sim <= 2):");
-        for (int i = 0; i < 5; i ++){
-            Pair<Double,Double> statics = computeDistribution(maniMatrix,getBin(evalMatrix,1D, 2D, maniMatrix.keySet()),i);
-            System.out.format("%.6f, %.6f%n",
-                    statics.first(),
-                    statics.second());
-        }
-
-        System.out.println("Mean and Dev (sim >= 3):");
-        for (int i = 0; i < 5; i ++){
-            Pair<Double,Double> statics = computeDistribution(maniMatrix,getBin(evalMatrix,3D, 5D, maniMatrix.keySet()),i);
-            System.out.format("%.6f, %.6f%n",
-                    statics.first(),
-                    statics.second());
-        }
+//        System.out.print("Correlation:");
+//        for (Double score: computeCorrelation(maniMatrix, evalMatrix)){
+//            System.out.format("%.6f ", score);
+//
+//        }
+//        System.out.println();
+//
+//        System.out.println("Mean and Dev (sim <= 2):");
+//        for (int i = 0; i < 7; i ++){
+//            Pair<Double,Double> statics = computeDistribution(maniMatrix,getBin(evalMatrix,1D, 2D, maniMatrix.keySet()),i);
+//            System.out.format("%.6f, %.6f%n",
+//                    statics.first(),
+//                    statics.second());
+//        }
+//
+//        System.out.println("Mean and Dev (sim >= 3):");
+//        for (int i = 0; i < 7; i ++){
+//            Pair<Double,Double> statics = computeDistribution(maniMatrix,getBin(evalMatrix,3D, 5D, maniMatrix.keySet()),i);
+//            System.out.format("%.6f, %.6f%n",
+//                    statics.first(),
+//                    statics.second());
+//        }
 
 
         executor.shutdown();
