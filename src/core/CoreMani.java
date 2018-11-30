@@ -70,7 +70,7 @@ public class CoreMani {
         this.doc1Senses = doc1Senses;
         this.doc2Senses = doc2Senses;
 
-        //Fot TEST only
+        //For TEST only
         //this.createTotalTerms();
 
         //For ADW TEST

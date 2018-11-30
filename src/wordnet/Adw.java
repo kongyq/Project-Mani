@@ -87,8 +87,8 @@ public class Adw {
     {
         Adw adw = new Adw();
 //        System.out.println(adw.getBestMatchScore(Arrays.asList("00958896n","08256968n"), Arrays.asList("08256968n","00958896n")));
-//        System.out.println(adw.getOffsetSimilarity("00958896n", "08256968n"));
-        System.out.println(adw.getTextSimilarity("this is an apple.", "that is an orange."));
+        System.out.println(adw.getOffsetSimilarity("14589223n", "00634906v"));
+//        System.out.println(adw.getTextSimilarity("this is an apple.", "that is an orange."));
     }
 
     public static void main3(String[] args){

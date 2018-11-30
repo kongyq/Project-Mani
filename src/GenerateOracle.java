@@ -78,7 +78,7 @@ public class GenerateOracle {
 
         System.out.println("Start!");
 
-        PrintStream out = new PrintStream(new FileOutputStream("/home/mike/Desktop/BabelNet_dictory_for_python_V2.txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("/home/mike/Desktop/BabelNet_dictory_for_python_V3.txt"));
         System.setOut(out);
 
         ExecutorService executor = Executors.newFixedThreadPool(4);
@@ -97,13 +97,15 @@ public class GenerateOracle {
 //                    Runnable worker = new WorkerThreadGO(entry_doc1, entry_doc2, adw);
 //                    executor.execute(worker);
 //
-                    System.out.format("%s#%d#%d,%s#%d#%d:%f ",
+                    System.out.format("%s#%d#%d#%s,%s#%d#%d#%s:%f ",
                             entry_doc1.getKey().word(),
                             entry_doc1.getKey().index(),
                             entry_doc1.getKey().sentIndex(),
+                            entry_doc1.getKey().tag(),
                             entry_doc2.getKey().word(),
                             entry_doc2.getKey().index(),
                             entry_doc2.getKey().sentIndex(),
+                            entry_doc2.getKey().tag(),
                             adw.getBestMatchScore(entry_doc1.getValue(), entry_doc2.getValue()));
 //
 
