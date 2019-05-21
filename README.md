@@ -11,7 +11,8 @@ Mani is an experimental implementation of a novel document representation. It's 
   3. Modify the /config/babelfy.properties file with your own Babelfy API key
   4. Download ADW signature Files and unzip it to /media folder
   5. Check /src/ProjectRunner.java files for examples
-  
+### Parameters
+All parameters of Mani can be modified in /src/CoreThread.java. Include the type of words of lexical edges and usage of the stop words.
 ### Corpus and results
 The corpus used in Mani is Dr.Michael D Lee's 50 documents, located in ./corpus folder, and all results that based on the corpus are located in ./results folder. 
 > **Please notice that the Babelfy only provide online version and latest version of BabelNet is 4.01. 3.7 version of offline index has been removed from the official website. All results provided in ./results folder are based on the 3.7 version of Babelfy and BabelNet.**
