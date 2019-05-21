@@ -56,29 +56,20 @@ public class CoreThread implements Callable<Pair<Pair<Integer, Integer>, Double[
                                  HashMap<IndexedWord, List<String>> doc2Sences,
                                  CoreNlp doc1, CoreNlp doc2, Double[] thresholds){
 
-//        doc1.createMani();
-//        doc2.createMani();
         doc1.createSentenceList();
         doc2.createSentenceList();
 
-//        Core core = new Core(doc1.getMani(), doc2.getMani());
         CoreMani coreMani = new CoreMani(doc1.getSentenceList(), doc2.getSentenceList(),
                 doc1Sences, doc2Sences);
 
-//        Double jaccard = core.getJaccardSimilarity();
-
+        //control type of word that connect lexical edges and usage of the stop words.
 //        coreMani.run(new POS[] {POS.n, POS.v, POS.a, POS.r}, false);
         coreMani.run(new POS[] {POS.n, POS.v}, false);
 
-        //For jaccard TEST only
-//        Double jaccard = coreMani.getJaccardSimilarity();
 
         Double[] maniScores = ArrayUtils.toObject(Arrays.stream(thresholds).
                 mapToDouble(threshold -> coreMani.getManiScore_threshold(threshold)).
                 toArray());
-
-        //For jaccard TEST only
-//        maniScores[maniScores.length-1] = jaccard;
 
         return maniScores;
     }
