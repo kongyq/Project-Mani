@@ -18,7 +18,7 @@ import wordnet.WS4J;
 import java.util.*;
 
 /**
- * Created by mike on 12/7/17.
+ * Created by anonymous on 12/7/17.
  */
 public class CoreMani {
 

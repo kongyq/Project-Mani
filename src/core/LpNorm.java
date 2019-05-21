@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by mike on 12/11/17.
+ * Created by anonymous on 12/11/17.
  */
 public class LpNorm {
     private List<Interval<Double>> intervals;

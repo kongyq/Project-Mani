@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by mike on 11/23/17.
+ * Created by anonymous on 11/23/17.
  */
 public class EvalReader {
 
@@ -55,11 +55,12 @@ public class EvalReader {
     }
 
     public static void main(String[] args) throws IOException {
-        File evalFile = new File("/home/mike/Documents/corpus/sim.csv");
+        File evalFile = new File("/home/anonymous/Documents/corpus/sim.csv");
         EvalReader evalReader = new EvalReader();
         evalReader.read(evalFile);
         System.out.println(evalReader.getSim());
         System.out.println(evalReader.getScore(new Pair<>(4,5)));
+        System.out.println(evalReader.getSim().size());
     }
 
 }

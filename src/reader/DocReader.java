@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by mike on 10/16/17.
+ * Created by anonymous on 10/16/17.
  */
 public class DocReader {
     private String title;
@@ -200,10 +200,10 @@ public class DocReader {
     }
 
     public static void main(String[] arg) throws IOException, BoilerpipeProcessingException, SAXException {
-        File file = new File("/home/mike/Documents/corpus/orig/cv/1.txt");
-        File htmlFile = new File ("/home/mike/Documents/corpus/TmpCorpus/117_2.html");
-        File txtFile = new File("/home/mike/Documents/corpus/TxtCorpus/117_2.txt");
-        File shortArticleFile = new File("/home/mike/Documents/corpus/documents.txt");
+        File file = new File("/home/anonymous/Documents/corpus/orig/cv/1.txt");
+        File htmlFile = new File ("/home/anonymous/Documents/corpus/TmpCorpus/117_2.html");
+        File txtFile = new File("/home/anonymous/Documents/corpus/TxtCorpus/117_2.txt");
+        File shortArticleFile = new File("/home/anonymous/Documents/corpus/documents.txt");
 
 //        System.out.println(file.isFile());
         DocReader dr = new DocReader();

@@ -1,11 +1,11 @@
 package tfidf;
 
 /**
- * Created by yuqikong on 7/17/17.
+ * Created by anonymous on 7/17/17.
  */
 /**
  * Cosine similarity calculator class
- * @author Mubin Shrestha
+ * @author anonymous
  */
 public class CosineSimilarity {
 

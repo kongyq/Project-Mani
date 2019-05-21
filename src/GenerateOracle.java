@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by mike on 2/21/18.
+ * Created by anonymous on 2/21/18.
  */
 public class GenerateOracle {
 
@@ -64,7 +64,7 @@ public class GenerateOracle {
     }
 
     public static void main(String[] args) throws IOException, InvalidBabelSynsetIDException {
-        File DATASET = new File("/home/mike/Documents/corpus/documents.txt");
+        File DATASET = new File("/home/anonymous/Documents/corpus/documents.txt");
 //        Stopwatch timer = Stopwatch.createStarted();
 
         DocReader docReader = new DocReader();
@@ -78,7 +78,7 @@ public class GenerateOracle {
 
         System.out.println("Start!");
 
-        PrintStream out = new PrintStream(new FileOutputStream("/home/mike/Desktop/BabelNet_dictory_for_python_V3.txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("/home/anonymous/Desktop/BabelNet_dictory_for_python_V3.txt"));
         System.setOut(out);
 
         ExecutorService executor = Executors.newFixedThreadPool(4);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mike on 11/1/17.
+ * Created by anonymous on 11/1/17.
  */
 public class Briefcase {
     private List<File> allFiles;

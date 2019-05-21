@@ -7,7 +7,7 @@ import edu.sussex.nlp.jws.WuAndPalmer;
 import javax.sound.midi.Soundbank;
 
 /**
- * Created by mike on 12/5/17.
+ * Created by anonymous on 12/5/17.
  */
 public class WordSim {
 

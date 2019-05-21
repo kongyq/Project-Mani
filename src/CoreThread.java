@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
- * Created by mike on 11/1/17.
+ * Created by anonymous on 11/1/17.
  */
 public class CoreThread implements Callable<Pair<Pair<Integer, Integer>, Double[]>> {
 

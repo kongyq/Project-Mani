@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by mike on 2/20/18.
+ * Created by anonymous on 2/20/18.
  */
 public class Adw {
 
@@ -87,7 +87,7 @@ public class Adw {
     {
         Adw adw = new Adw();
 //        System.out.println(adw.getBestMatchScore(Arrays.asList("00958896n","08256968n"), Arrays.asList("08256968n","00958896n")));
-        System.out.println(adw.getOffsetSimilarity("14589223n", "00634906v"));
+        System.out.println(adw.getOffsetSimilarity("09236472n", "09236472n"));
 //        System.out.println(adw.getTextSimilarity("this is an apple.", "that is an orange."));
     }
 

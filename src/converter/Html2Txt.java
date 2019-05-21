@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
- * Created by mike on 11/5/17.
+ * Created by anonymous on 11/5/17.
  */
 public class Html2Txt {
 
-    private static final File HTMLFOLDER = new File("/home/mike/Documents/corpus/TmpCorpus/");
-    private static final File TXTFOLDER = new File("/home/mike/Documents/corpus/TxtAonlyCorpus/");
+    private static final File HTMLFOLDER = new File("/home/anonymous/Documents/corpus/TmpCorpus/");
+    private static final File TXTFOLDER = new File("/home/anonymous/Documents/corpus/TxtAonlyCorpus/");
 
     public static void main(String[] args) throws IOException, SAXException, BoilerpipeProcessingException {
         Briefcase briefcase = new Briefcase(HTMLFOLDER, "html");

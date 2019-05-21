@@ -18,7 +18,7 @@ import edu.stanford.nlp.process.PTBTokenizer;
  * word can be provided a character at time (by calling add()), or at once
  * by calling one of the various stem(something) methods.
  *
- * @author Sepandar Kamvar (sdkamvar@stanford.edu)
+ * @author anonymous
  */
 
 public class Stemmer implements Function<Word,Word> {

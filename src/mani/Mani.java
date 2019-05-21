@@ -6,7 +6,7 @@ import edu.stanford.nlp.semgraph.SemanticGraph;
 import java.util.*;
 
 /**
- * Created by mike on 9/14/17.
+ * Created by anonymous on 9/14/17.
  */
 public class Mani {
 

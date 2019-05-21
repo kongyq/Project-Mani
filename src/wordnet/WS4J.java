@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Created by mike on 11/30/17.
+ * Created by anonymous on 11/30/17.
  */
 public class WS4J {
 

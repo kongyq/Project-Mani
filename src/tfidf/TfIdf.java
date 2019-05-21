@@ -1,16 +1,16 @@
 package tfidf;
 
 /**
- * Created by yuqikong on 7/17/17.
+ * Created by anonymous on 7/17/17.
  */
 /**
- * Created by mike on 7/7/17.
+ * Created by anonymous on 7/7/17.
  */
 import java.util.List;
 
 /**
  * Class to calculate TfIdf of term.
- * @author Mubin Shrestha
+ * @author anonymous
  */
 public class TfIdf {
 

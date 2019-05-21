@@ -1,7 +1,7 @@
 package corenlp;
 
 /**
- * Created by mike on 10/13/17.
+ * Created by anonymous on 10/13/17.
  */
 import com.google.common.base.CharMatcher;
 import core.Core;
@@ -201,8 +201,8 @@ public class CoreNlp {
     public static void main(String[] arg) throws IOException {
         DocReader dr1 = new DocReader();
         DocReader dr2 = new DocReader();
-        dr1.read(new File("/home/mike/Documents/corpus/orig/nklm/3.txt"));
-        dr2.read(new File("/home/mike/Documents/corpus/orig/nklm/2.txt"));
+        dr1.read(new File("/home/anonymous/Documents/corpus/orig/nklm/3.txt"));
+        dr2.read(new File("/home/anonymous/Documents/corpus/orig/nklm/2.txt"));
 
         CoreNlp coreNlp1 = new CoreNlp();
         CoreNlp coreNlp2 = new CoreNlp();

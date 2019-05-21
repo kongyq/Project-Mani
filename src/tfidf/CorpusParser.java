@@ -1,7 +1,7 @@
 package tfidf;
 
 /**
- * Created by mike on 7/8/17.
+ * Created by anonymous on 7/8/17.
  */
 import javax.json.*;
 import java.io.File;
@@ -20,7 +20,7 @@ import reader.DocReader;
 /**
  * Class to read documents
  *
- * @author Mubin Shrestha
+ * @author anonymous
  */
 public class CorpusParser {
 
@@ -109,7 +109,7 @@ public class CorpusParser {
     }
 
 
-    private static final File TEST = new File("/home/mike/Documents/corpus/TxtCorpus/");
+    private static final File TEST = new File("/home/anonymous/Documents/corpus/TxtCorpus/");
 
     public static void main(String[] arg){
 
@@ -118,7 +118,7 @@ public class CorpusParser {
             dp.parseFiles(TEST);
             System.out.println("done");
             dp.tfIdfCalculator();
-            System.out.println("doune");
+            System.out.println("done");
             for (Map.Entry<File, double[]> entry: dp.tfidfDocsVector.entrySet()){
                 System.out.println(entry.getKey().getName());
                 System.out.println(entry.getValue().length);

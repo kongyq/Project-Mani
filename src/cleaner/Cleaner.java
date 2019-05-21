@@ -3,7 +3,7 @@ package cleaner;
 import com.google.common.base.CharMatcher;
 
 /**
- * Created by mike on 10/17/17.
+ * Created by anonymous on 10/17/17.
  */
 public class Cleaner {
 

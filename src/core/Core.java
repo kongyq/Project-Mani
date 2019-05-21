@@ -9,7 +9,7 @@ import stopword.StopwordAnnotator;
 import java.util.*;
 
 /**
- * Created by mike on 10/26/17.
+ * Created by anonymous on 10/26/17.
  */
 public class Core {
 
