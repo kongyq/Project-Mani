@@ -10,7 +10,7 @@ import java.util.*;
 
 public class CICalculator {
 
-    private final File evalFile = new File("/home/mike/Documents/corpus/sim.csv");
+    private final File evalFile = new File("/home/anonymous/Documents/corpus/sim.csv");
     private EvalReader reader = new EvalReader();
     private Map<String, Double> simMap;
     private Map<String, Double> disMap;
